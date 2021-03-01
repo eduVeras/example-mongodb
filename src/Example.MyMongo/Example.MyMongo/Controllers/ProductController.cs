@@ -1,6 +1,7 @@
 ﻿using Example.MyMongo.Model;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 
@@ -15,33 +16,34 @@ namespace Example.MyMongo.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return new List<Product>();
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<Product> GetAsync(int id)
         {
-            return "value";
+            return new Product();
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] Product data)
+        public async Task PostAsync([FromBody] Product data)
         {
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Product data)
+        public async Task PutAsync(int id, [FromBody] Product data)
         {
+            
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task Delete(int id)
         {
         }
     }
