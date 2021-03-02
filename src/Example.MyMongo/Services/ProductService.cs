@@ -21,27 +21,32 @@ namespace Example.MyMongo.Services
 
         public Task<IEnumerable<Product>> GetAsync()
         {
-            throw new NotImplementedException();
+            return _productRepository.GetAsync();
         }
 
         public Task<Product> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.GetAsync(id);
         }
 
         public Task InsertAsync(Product data)
         {
-            throw new NotImplementedException();
+            return _productRepository.InsertAsync(data);
         }
 
         public Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            return _productRepository.DeleteAsync(id);
         }
 
-        public Task UpdateAsync(Product data)
+        public async Task UpdateAsync(Product data)
         {
-            throw new NotImplementedException();
+            if (data.Id.Equals(0))
+            {
+                throw new ArgumentNullException(nameof(data.Id),"Id must be informed.");
+            }
+
+            await _productRepository.UpdateAsync(data).ConfigureAwait(false);
         }
     }
 }
