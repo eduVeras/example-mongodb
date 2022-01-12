@@ -1,3 +1,4 @@
+using Example.MyMongo.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ namespace Example.MyMongo
 {
     public class Startup
     {
+        private const string AppNamespace = "";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,6 +21,7 @@ namespace Example.MyMongo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerConfiguration();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +37,8 @@ namespace Example.MyMongo
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwaggerConfiguration(AppNamespace);
 
             app.UseEndpoints(endpoints =>
             {
