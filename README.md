@@ -1,8 +1,8 @@
-# Example-MongoDb
+## Introduction
 
-In this project i use mongo with a simple api.
+In this project I made an API with a CRUD, just to demonstrate the use of MongoDb.
 
-# Get Started
+## Get Started
 
 First of all to use this project you need to run a yml file with docker compose with the follow command:
 
@@ -10,11 +10,9 @@ First of all to use this project you need to run a yml file with docker compose 
 docker-compose up
 ```
 
-# Introduction
-
-
-
-# Technologies implemented
+## Technologies implemented
 
 - ASP.NET Core 3.1 
 - Mongo
+- Swagger
+- Docker
