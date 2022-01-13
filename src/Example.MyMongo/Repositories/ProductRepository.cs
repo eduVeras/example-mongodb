@@ -1,43 +1,52 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Example.MyMongo.Interfaces.Repositories;
+﻿using Example.MyMongo.Interfaces.Repositories;
 using Example.MyMongo.Model;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using MongoDB.Driver;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Example.MyMongo.Repositories
 {
     public class ProductRepository : IProductRepository
     {
         private readonly ILogger<ProductRepository> _logger;
-
-        public ProductRepository(ILogger<ProductRepository> logger)
+        private readonly string ProductCollectionName = "Products";
+        private readonly string DatabaseName = "ProductsDb";
+        private readonly IMongoCollection<Product> _products;
+        public ProductRepository(ILogger<ProductRepository> logger, IConfiguration configuration)
         {
             _logger = logger;
+
+            var client = new MongoClient();
+            var database = client.GetDatabase(configuration.GetConnectionString("ProductsConnectionString"));
+
+            _products = database.GetCollection<Product>(ProductCollectionName);
         }
 
-        public Task<IEnumerable<Product>> GetAsync()
+        public async Task<IEnumerable<Product>> GetAsync()
         {
-            throw new System.NotImplementedException();
+            return (await _products.FindAsync(p => true).ConfigureAwait(false)).ToList();
         }
 
-        public Task<Product> GetAsync(int id)
+        public async Task<Product> GetAsync(int id)
         {
-            throw new System.NotImplementedException();
+            return (await _products.FindAsync<Product>(p => p.Id == id).ConfigureAwait(false)).FirstOrDefault();
         }
 
-        public Task InsertAsync(Product data)
+        public async Task InsertAsync(Product data)
         {
-            throw new System.NotImplementedException();
+            await _products.InsertOneAsync(data).ConfigureAwait(false);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new System.NotImplementedException();
+            var deleteResult = await _products.DeleteOneAsync(p => p.Id == id).ConfigureAwait(false);
         }
 
-        public Task UpdateAsync(Product data)
+        public async Task UpdateAsync(Product data)
         {
-            throw new System.NotImplementedException();
+            var replaceResult = await _products.ReplaceOneAsync(p => p.Id == data.Id, data).ConfigureAwait(false);
         }
     }
 }

@@ -19,31 +19,31 @@ namespace Example.MyMongo.Services
             _logger = logger;
         }
 
-        public Task<IEnumerable<Product>> GetAsync()
+        public async Task<IEnumerable<Product>> GetAsync()
         {
-            return _productRepository.GetAsync();
+            return await _productRepository.GetAsync().ConfigureAwait(false);
         }
 
-        public Task<Product> GetAsync(int id)
+        public async Task<Product> GetAsync(int id)
         {
-            return _productRepository.GetAsync(id);
+            return await _productRepository.GetAsync(id).ConfigureAwait(false);
         }
 
-        public Task InsertAsync(Product data)
+        public async Task InsertAsync(Product data)
         {
-            return _productRepository.InsertAsync(data);
+            await _productRepository.InsertAsync(data).ConfigureAwait(false);
         }
 
-        public Task DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-            return _productRepository.DeleteAsync(id);
+            await _productRepository.DeleteAsync(id).ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(Product data)
         {
             if (data.Id.Equals(0))
             {
-                throw new ArgumentNullException(nameof(data.Id),"Id must be informed.");
+                throw new ArgumentNullException(nameof(data.Id), "Id must be informed.");
             }
 
             await _productRepository.UpdateAsync(data).ConfigureAwait(false);

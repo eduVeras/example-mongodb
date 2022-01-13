@@ -1,9 +1,11 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Example.MyMongo.Model
 {
     public class Product
     {
+        [BsonId]
         public int Id { get; set; }
         public string Name { get; set; }
         public ProductType ProductType { get; set; }
