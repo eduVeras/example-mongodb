@@ -18,9 +18,8 @@ namespace Example.MyMongo.Repositories
         {
             _logger = logger;
 
-            var client = new MongoClient();
-            var database = client.GetDatabase(configuration.GetConnectionString("ProductsConnectionString"));
-
+            var client = new MongoClient(configuration.GetConnectionString("ProductsConnectionString"));
+            var database = client.GetDatabase(DatabaseName);           
             _products = database.GetCollection<Product>(ProductCollectionName);
         }
 
