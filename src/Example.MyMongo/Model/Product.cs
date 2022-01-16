@@ -13,8 +13,7 @@ namespace Example.MyMongo.Model
         public string Id { get; set; }
         [BsonElement]
         public string Name { get; set; }
-        //[BsonElement]
-        //public ProductType ProductType { get; set; }
+        
         [BsonElement]
         public decimal Price { get; set; }
         [BsonElement]

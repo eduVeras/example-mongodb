@@ -21,21 +21,18 @@ namespace Example.MyMongo.Controllers
         }
 
 
-        // GET: api/<ProductController>
         [HttpGet]
         public async Task<IEnumerable<Product>> GetProductsAsync()
         {
             return await _productService.GetAsync().ConfigureAwait(false);
         }
 
-        // GET api/<ProductController>/5
         [HttpGet("{id}")]
         public async Task<Product> GetAsync(int id)
         {
             return await _productService.GetAsync(id).ConfigureAwait(false);
         }
 
-        // POST api/<ProductController>
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] Product data)
         {
@@ -44,7 +41,6 @@ namespace Example.MyMongo.Controllers
             return Created("", data);
         }
 
-        // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAsync(int id, [FromBody] Product data)
         {
@@ -53,7 +49,6 @@ namespace Example.MyMongo.Controllers
             return Ok(data);
         }
 
-        // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {

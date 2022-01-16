@@ -25,27 +25,36 @@ namespace Example.MyMongo.Repositories
 
         public async Task<IEnumerable<Product>> GetAsync()
         {
-            
+            _logger.LogInformation("{className} - GetAsync invoked.", nameof(ProductRepository));
+
             return (await _products.FindAsync(p => true).ConfigureAwait(false)).ToList();
         }
 
         public async Task<Product> GetAsync(int id)
         {
+            _logger.LogInformation("{className} - GetAsync invoked with id: {id}.", nameof(ProductRepository), id);
+
             return (await _products.FindAsync<Product>(p => p.Id == id.ToString()).ConfigureAwait(false)).FirstOrDefault();
         }
 
         public async Task InsertAsync(Product data)
         {
+            _logger.LogInformation("{className} - InsertAsync invoked.", nameof(ProductRepository));
+
             await _products.InsertOneAsync(data).ConfigureAwait(false);
         }
 
         public async Task DeleteAsync(int id)
         {
+            _logger.LogInformation("{className} - DeleteAsync invoked.", nameof(ProductRepository));
+
             var deleteResult = await _products.DeleteOneAsync(p => p.Id == id.ToString()).ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(Product data)
         {
+            _logger.LogInformation("{className} - UpdateAsync invoked.", nameof(ProductRepository));
+
             var replaceResult = await _products.ReplaceOneAsync(p => p.Id == data.Id, data).ConfigureAwait(false);
         }
     }
