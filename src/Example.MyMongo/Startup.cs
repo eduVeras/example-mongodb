@@ -21,9 +21,13 @@ namespace Example.MyMongo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
             services
                 .AddSwaggerConfiguration()
                 .AddDependecies();
+
+            
+        
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -25,12 +25,13 @@ namespace Example.MyMongo.Repositories
 
         public async Task<IEnumerable<Product>> GetAsync()
         {
+            
             return (await _products.FindAsync(p => true).ConfigureAwait(false)).ToList();
         }
 
         public async Task<Product> GetAsync(int id)
         {
-            return (await _products.FindAsync<Product>(p => p.Id == id).ConfigureAwait(false)).FirstOrDefault();
+            return (await _products.FindAsync<Product>(p => p.Id == id.ToString()).ConfigureAwait(false)).FirstOrDefault();
         }
 
         public async Task InsertAsync(Product data)
@@ -40,7 +41,7 @@ namespace Example.MyMongo.Repositories
 
         public async Task DeleteAsync(int id)
         {
-            var deleteResult = await _products.DeleteOneAsync(p => p.Id == id).ConfigureAwait(false);
+            var deleteResult = await _products.DeleteOneAsync(p => p.Id == id.ToString()).ConfigureAwait(false);
         }
 
         public async Task UpdateAsync(Product data)

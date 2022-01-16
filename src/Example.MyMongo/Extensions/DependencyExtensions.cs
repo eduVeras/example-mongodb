@@ -12,7 +12,7 @@ namespace Example.MyMongo.Extensions
         public static IServiceCollection AddDependecies(this IServiceCollection services)
         {
             services.AddScoped<IProductService, ProductService>();
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddSingleton<IProductRepository, ProductRepository>();
             return services;
         }
     }
