@@ -42,7 +42,7 @@ namespace Example.MyMongo.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(int id, [FromBody] Product data)
+        public async Task<IActionResult> PutAsync([FromBody] Product data)
         {
             await _productService.UpdateAsync(data).ConfigureAwait(false);
 
